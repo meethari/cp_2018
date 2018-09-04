@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#define NUM_COUNT 16
+#define NUM_COUNT 15
 
 using namespace std;
 
@@ -8,29 +8,34 @@ int main() {
     int n; // number of lines
     cin >> n;
 
-    // learn how to declare a vector array correctly
-    int inputs[n][16];
-    
-    for (int i = 0; i < n; i++) 
-        for (int j = 0; j < NUM_COUNT; j++)
-            cin >> inputs[i][j];
-    
-    /*
+    vector<vector<int>> numbers;
+
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < NUM_COUNT; j++)
-            cout << inputs[i][j] << " ";
-        cout << endl;
+      vector<int> v1;
+      for (int j = 0; j < NUM_COUNT + 1; j++) {
+
+        int input;
+        cin >> input;
+
+        if (j == 0) {
+          continue;
+        }
+
+        v1.push_back(input);
+      }
+      numbers.push_back(v1);
     }
-    */
-
-   // To check every subsequence to see whether it's an island
-
-   // brute force
 
    for (int i = 0; i < n; i++) {
-       // TODO: implement the stuff up here
-       // finally
-       cout << inputs[i][0] << " " << islandCount << endl;
+       int island_count = 0;
+
+       for (int j = 1; j < NUM_COUNT; j++) {
+         if (numbers[i][j-1] - numbers[i][j] == -1) {
+           island_count++;
+         }
+       }
+
+       cout << i + 1 << " " << island_count << endl;
    }
 
 }
