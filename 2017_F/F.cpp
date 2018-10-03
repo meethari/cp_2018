@@ -7,6 +7,8 @@ using namespace std;
 
 int find_sum(int);
 int is_palindrome(int, int);
+int recursive_check(int, int);
+int find_lower_bound(int num, int length);
 
 int main() {
 
@@ -18,8 +20,12 @@ int main() {
     for (int i = 0; i < length; i++) {
         num += int(s[(length - 1) - i] - '0') * pow(10, i);
     }
+
+    int lower_bound = find_lower_bound(num, length);
+
+    cout << lower_bound << endl;
     
-    for (int i = 0; i <= 9 * length; i++) {
+    for (int i = 0; i <= lower_bound; i++) {
         
         int limit = pow(10, length);
 
@@ -66,4 +72,19 @@ int is_palindrome(int candidate, int length) {
             return 0;
     }
     return 1;
+}
+
+int find_lower_bound(int num, int length) {
+    int lower_bound = 0;
+
+    int base_1 = 1, base_2 = pow(10, length-1);
+    while (base_2 > base_1) {
+
+        int a = (num / base_1) % 10, b = (num / base_2) % 10;
+        lower_bound += abs(a-b);
+        base_1 *= 10;
+        base_2 /= 10;
+    }
+
+    return lower_bound;
 }
